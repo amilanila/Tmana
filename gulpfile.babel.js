@@ -13,7 +13,7 @@ import yargs     from 'yargs';
 import lodash    from 'lodash';
 import sass      from 'gulp-sass';
 import minifyCss from 'gulp-minify-css';
-
+import shell     from 'gulp-shell';
 
 let reload = () => serve.reload();
 let root = 'www';
@@ -53,23 +53,20 @@ gulp.task('webpack', () => {
     .pipe(gulp.dest(paths.output));
 });
 
-
-// Start server for browser-sync
 gulp.task('serve', () => {
   serve({
-    port: process.env.PORT || 3000,
+    port: 3000,
     open: false,
-    server: { baseDir: root }
+    server: {baseDir : root}
   });
 });
 
-
-// Restart android server
-gulp.task('androidserver', shell.task([
- 'adb kill-server',
- 'adb start-server',
- 'adb devices -l'
-]));
+// // Restart android server
+// gulp.task('androidserver', shell.task([
+//  'adb kill-server',
+//  'adb start-server',
+//  'adb devices -l'
+// ]));
 
 
 gulp.task('component', () => {
@@ -104,7 +101,6 @@ gulp.task('sass', () => {
     .pipe(gulp.dest('./www/css/'))
 });
 
-
 // Watching all files and reload server
 gulp.task('watch', () => {
   let allPaths = [].concat([paths.js], paths.html, [paths.sass]);
@@ -119,6 +115,6 @@ gulp.task('default', (done) => {
 
 
 // Start server
-gulp.task('serve', (done) => {
+gulp.task('server', (done) => {
   sync('default', 'serve', done);
 });
