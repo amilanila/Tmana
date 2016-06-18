@@ -1,3 +1,4 @@
+import WeakMap from 'es6-weak-map';
 
 let homeFactory = function ($resource) {
   

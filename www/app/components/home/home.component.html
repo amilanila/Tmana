@@ -1,1 +1,7 @@
 <h1>{{ vm.name }}</h1>
+<h2>{{ vm.description }}</h2>
+<ion-list>
+  <ion-item ng-repeat="division in vm.divisions">
+    {{ division.title }}
+  </ion-item>
+</ion-list>

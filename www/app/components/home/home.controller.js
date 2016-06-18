@@ -1,13 +1,20 @@
+import { divisionList } from '../../api/division';
+
 class HomeController {
   constructor(factory) {
-    this.name = 'home';
+    this.name = 'Division';
+    this.divisions = [];
     this.init();
   }
 
   init(){
-	//code
+	  console.log('init home controller ...');
+    this.divisions = this.loadDivisions();
   }
 
+  loadDivisions() {
+    return divisionList();
+  }
 
 }
 
