@@ -55,8 +55,8 @@ gulp.task('webpack', () => {
 
 gulp.task('serve', () => {
   serve({
-    port: 3000,
-    open: false,
+    port: 3001,
+    open: true,
     server: {baseDir : root}
   });
 });

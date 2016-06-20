@@ -8,14 +8,18 @@ class HomeController {
   }
 
   init(){
-	  console.log('init home controller ...');
-    this.divisions = this.loadDivisions();
+    let self = this;
+	  console.log('init home controller');
+    let resData = this.loadDivisions();
+    resData.then(function(d){
+      self.divisions = d;
+      console.log(JSON.stringify(d));
+    });
   }
 
   loadDivisions() {
     return divisionList();
   }
-
 }
 
 export default ['home.factory',HomeController];
