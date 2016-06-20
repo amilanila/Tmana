@@ -3,6 +3,6 @@ import { extractProp, get, disregarder } from './common';
 
 export const divisionList = disregarder(() => {
 	console.log('loading divisions');
-	return get('http://localhost:8080/api/facets')
-		.then(extractProp('facets'));
+	return get('http://localhost:8080/api/division')
+		.then(extractProp('divisions'));
 });

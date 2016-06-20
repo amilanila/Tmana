@@ -101035,7 +101035,7 @@
 	
 	var divisionList = (0, _common.disregarder)(function () {
 		console.log('loading divisions');
-		return (0, _common.get)('http://localhost:8080/api/facets').then((0, _common.extractProp)('facets'));
+		return (0, _common.get)('http://localhost:8080/api/division').then((0, _common.extractProp)('divisions'));
 	});
 	exports.divisionList = divisionList;
 
