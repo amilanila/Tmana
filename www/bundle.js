@@ -100091,7 +100091,11 @@
 	
 	var _headerHeader2 = _interopRequireDefault(_headerHeader);
 	
-	var componentModule = _angular2['default'].module('app.components', [_menuMenu2['default'].name, _homeHome2['default'].name, _aboutAbout2['default'].name, _headerHeader2['default'].name]);
+	var _teamTeam = __webpack_require__(74);
+	
+	var _teamTeam2 = _interopRequireDefault(_teamTeam);
+	
+	var componentModule = _angular2['default'].module('app.components', [_menuMenu2['default'].name, _homeHome2['default'].name, _aboutAbout2['default'].name, _headerHeader2['default'].name, _teamTeam2['default'].name]);
 	
 	exports['default'] = componentModule;
 	module.exports = exports['default'];
@@ -100968,7 +100972,7 @@
 /* 10 */
 /***/ function(module, exports) {
 
-	module.exports = "<h1>{{ vm.name }}</h1>\r\n<h2>{{ vm.description }}</h2>\r\n<ion-list>\r\n  <ion-item ng-repeat=\"division in vm.divisions\">\r\n    {{ division.title }}\r\n  </ion-item>\r\n</ion-list>"
+	module.exports = "<h1>{{ vm.name }}</h1>\r\n<h6>{{ vm.description }}</h6>\r\n<ion-list>\r\n  <ion-item ng-repeat=\"division in vm.divisions\">\r\n    {{ division.title }}\r\n  </ion-item>\r\n</ion-list>"
 
 /***/ },
 /* 11 */
@@ -102839,6 +102843,193 @@
 	};
 	
 	exports['default'] = ['$resource', headerFactory];
+	module.exports = exports['default'];
+
+/***/ },
+/* 74 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _angular = __webpack_require__(1);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _angularUiRouter = __webpack_require__(3);
+	
+	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
+	
+	var _angularResource = __webpack_require__(7);
+	
+	var _angularResource2 = _interopRequireDefault(_angularResource);
+	
+	var _teamComponent = __webpack_require__(75);
+	
+	var _teamComponent2 = _interopRequireDefault(_teamComponent);
+	
+	var _teamFactory = __webpack_require__(79);
+	
+	var _teamFactory2 = _interopRequireDefault(_teamFactory);
+	
+	var _config = __webpack_require__(61);
+	
+	var _config2 = _interopRequireDefault(_config);
+	
+	var teamModule = _angular2['default'].module('team', [_angularUiRouter2['default'], _angularResource2['default']]).config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
+	  "ngInject";
+	
+	  $stateProvider.state('app.team', {
+	    url: '/team',
+	    views: {
+	      'menuContent': {
+	        templateUrl: _config2['default'].pathHtml + 'team/team.html'
+	      }
+	    }
+	  });
+	}]).directive('team', _teamComponent2['default']).factory('team.factory', _teamFactory2['default']);
+	
+	exports['default'] = teamModule;
+	module.exports = exports['default'];
+
+/***/ },
+/* 75 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _teamComponentHtml = __webpack_require__(76);
+	
+	var _teamComponentHtml2 = _interopRequireDefault(_teamComponentHtml);
+	
+	var _teamController = __webpack_require__(77);
+	
+	var _teamController2 = _interopRequireDefault(_teamController);
+	
+	var teamComponent = function teamComponent() {
+	  return {
+	    restrict: 'E',
+	    scope: {},
+	    template: _teamComponentHtml2['default'],
+	    controller: _teamController2['default'],
+	    controllerAs: 'vm',
+	    bindToController: true
+	  };
+	};
+	
+	exports['default'] = teamComponent;
+	module.exports = exports['default'];
+
+/***/ },
+/* 76 */
+/***/ function(module, exports) {
+
+	module.exports = "<h1>{{ vm.name }}</h1>\r\n<ion-list>\r\n  <ion-item ng-repeat=\"team in vm.teams\">\r\n    {{ team.title }}\r\n  </ion-item>\r\n</ion-list>"
+
+/***/ },
+/* 77 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	var _apiTeam = __webpack_require__(78);
+	
+	var TeamController = (function () {
+	  function TeamController(factory) {
+	    _classCallCheck(this, TeamController);
+	
+	    this.name = 'Team';
+	    this.teams = [];
+	    this.init();
+	  }
+	
+	  _createClass(TeamController, [{
+	    key: 'init',
+	    value: function init() {
+	      var self = this;
+	      console.log('init team controller');
+	      var resData = this.loadTeams();
+	      resData.then(function (d) {
+	        self.teams = d;
+	        console.log(JSON.stringify(d));
+	      });
+	    }
+	  }, {
+	    key: 'loadTeams',
+	    value: function loadTeams() {
+	      return (0, _apiTeam.teamList)();
+	    }
+	  }]);
+	
+	  return TeamController;
+	})();
+	
+	exports['default'] = ['team.factory', TeamController];
+	module.exports = exports['default'];
+
+/***/ },
+/* 78 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	
+	var _constants = __webpack_require__(13);
+	
+	var _common = __webpack_require__(14);
+	
+	var teamList = (0, _common.disregarder)(function () {
+		console.log('loading teams');
+		return (0, _common.get)('http://localhost:8080/api/team').then((0, _common.extractProp)('teams'));
+	});
+	exports.teamList = teamList;
+
+/***/ },
+/* 79 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _es6WeakMap = __webpack_require__(16);
+	
+	var _es6WeakMap2 = _interopRequireDefault(_es6WeakMap);
+	
+	var teamFactory = function teamFactory($resource) {
+	
+	  var resources = {};
+	
+	  return $resource('https://secret-oasis-5061.herokuapp.com/api/Usuario/:url/:id', {}, resources);
+	};
+	
+	exports['default'] = ['$resource', teamFactory];
 	module.exports = exports['default'];
 
 /***/ }
