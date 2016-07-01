@@ -6,3 +6,9 @@ export const teamList = disregarder(() => {
 	return get('http://localhost:8080/api/team')
 		.then(extractProp('teams'));
 });
+
+export const teamByDivision = disregarder(() => {
+	console.log('loading team for division ...');
+	return get('http://localhost:8080/api/team/div/d1')
+		.then(extractProp('teams'));
+});

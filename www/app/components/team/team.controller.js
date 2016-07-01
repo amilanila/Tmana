@@ -1,4 +1,4 @@
-import { teamList } from '../../api/team';
+import { teamList, teamByDivision } from '../../api/team';
 
 class TeamController {
   constructor(factory) {
@@ -10,15 +10,28 @@ class TeamController {
   init(){
     let self = this;
 	  console.log('init team controller');
-    let resData = this.loadTeams();
-    resData.then(function(d){
-      self.teams = d;
-      console.log(JSON.stringify(d));
+
+    // loading all teams
+    let teams = this.loadTeams();
+    teams.then(function(tm){
+      self.teams = tm;
+      console.log(JSON.stringify(tm));
+    });
+
+    // loading teams for given division
+    let teamsOnDivision = this.loadTeamByDivision('d1');
+    teamsOnDivision.then((tm) => {
+      self.teams = tm;
+      console.log(JSON.stringify(tm));
     });
   }
 
   loadTeams() {
     return teamList();
+  }
+
+  loadTeamByDivision(divId) {
+    return teamByDivision(divId);
   }
 }
 

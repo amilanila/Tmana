@@ -102967,16 +102967,30 @@
 	    value: function init() {
 	      var self = this;
 	      console.log('init team controller');
-	      var resData = this.loadTeams();
-	      resData.then(function (d) {
-	        self.teams = d;
-	        console.log(JSON.stringify(d));
+	
+	      // loading all teams
+	      var teams = this.loadTeams();
+	      teams.then(function (tm) {
+	        self.teams = tm;
+	        console.log(JSON.stringify(tm));
+	      });
+	
+	      // loading teams for given division
+	      var teamsOnDivision = this.loadTeamByDivision('d1');
+	      teamsOnDivision.then(function (tm) {
+	        self.teams = tm;
+	        console.log(JSON.stringify(tm));
 	      });
 	    }
 	  }, {
 	    key: 'loadTeams',
 	    value: function loadTeams() {
 	      return (0, _apiTeam.teamList)();
+	    }
+	  }, {
+	    key: 'loadTeamByDivision',
+	    value: function loadTeamByDivision(divId) {
+	      return (0, _apiTeam.teamByDivision)(divId);
 	    }
 	  }]);
 	
@@ -103004,7 +103018,13 @@
 		console.log('loading teams');
 		return (0, _common.get)('http://localhost:8080/api/team').then((0, _common.extractProp)('teams'));
 	});
+	
 	exports.teamList = teamList;
+	var teamByDivision = (0, _common.disregarder)(function () {
+		console.log('loading team for division ...');
+		return (0, _common.get)('http://localhost:8080/api/team/div/d1').then((0, _common.extractProp)('teams'));
+	});
+	exports.teamByDivision = teamByDivision;
 
 /***/ },
 /* 79 */
