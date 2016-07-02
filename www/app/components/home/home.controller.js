@@ -9,11 +9,10 @@ class HomeController {
 
   init(){
     let self = this;
-	  console.log('init home controller');
     let resData = this.loadDivisions();
-    resData.then(function(d){
-      self.divisions = d;
-      console.log(JSON.stringify(d));
+
+    resData.then(div => {
+      self.divisions = div;
     });
   }
 

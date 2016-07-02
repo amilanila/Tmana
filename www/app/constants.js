@@ -1,6 +1,10 @@
-export const API_END_POINT = '/ws-api/tmana';
+export const API_END_POINT = '/api';
 
 export const Division = {
-	NEW : '/new-division',
-	LIST: '/list-division'
+	ALL: '/division'
 };
+
+export const Team = {
+	ALL: '/team',
+	TEAM_BY_DIVISION: '/team/div/'
+}

@@ -1,8 +1,8 @@
 import { API_END_POINT, Division } from '../constants';
 import { extractProp, get, disregarder } from './common';
+import { pathUrl } from '../config';
 
 export const divisionList = disregarder(() => {
-	console.log('loading divisions');
-	return get('http://localhost:8080/api/division')
+	return get(pathUrl + API_END_POINT + Division.ALL)
 		.then(extractProp('divisions'));
 });

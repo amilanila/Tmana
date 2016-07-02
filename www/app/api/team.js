@@ -1,14 +1,13 @@
 import { API_END_POINT, Team } from '../constants';
 import { extractProp, get, disregarder } from './common';
+import { pathUrl } from '../config';
 
 export const teamList = disregarder(() => {
-	console.log('loading teams');
-	return get('http://localhost:8080/api/team')
+	return get(pathUrl + API_END_POINT + Team.ALL)
 		.then(extractProp('teams'));
 });
 
-export const teamByDivision = disregarder(() => {
-	console.log('loading team for division ...');
-	return get('http://localhost:8080/api/team/div/d1')
+export const teamByDivision = disregarder( divId => {
+	return get(pathUrl + API_END_POINT + Team.TEAM_BY_DIVISION + divId)
 		.then(extractProp('teams'));
 });
