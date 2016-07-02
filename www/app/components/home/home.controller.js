@@ -1,10 +1,12 @@
 import { divisionList } from '../../api/division';
+import { teamByDivision } from '../../api/team';
 
 class HomeController {
   constructor(factory) {
     this.name = 'Division';
     this.divisions = [];
     this.init();
+    this.teams = [];
   }
 
   init(){
@@ -19,6 +21,17 @@ class HomeController {
   loadDivisions() {
     return divisionList();
   }
-}
+
+  loadTeamByDivision() {
+    let self = this;
+
+    // loading teams for given division
+    let teamsOnDivision = teamByDivision('d2');
+    teamsOnDivision.then( tm => {
+      self.teams = tm;
+    });
+    
+  }
+ }
 
 export default ['home.factory',HomeController];

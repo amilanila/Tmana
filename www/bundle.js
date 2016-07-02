@@ -100079,19 +100079,19 @@
 	
 	var _homeHome2 = _interopRequireDefault(_homeHome);
 	
-	var _aboutAbout = __webpack_require__(62);
+	var _aboutAbout = __webpack_require__(63);
 	
 	var _aboutAbout2 = _interopRequireDefault(_aboutAbout);
 	
-	var _menuMenu = __webpack_require__(67);
+	var _menuMenu = __webpack_require__(68);
 	
 	var _menuMenu2 = _interopRequireDefault(_menuMenu);
 	
-	var _headerHeader = __webpack_require__(69);
+	var _headerHeader = __webpack_require__(70);
 	
 	var _headerHeader2 = _interopRequireDefault(_headerHeader);
 	
-	var _teamTeam = __webpack_require__(74);
+	var _teamTeam = __webpack_require__(75);
 	
 	var _teamTeam2 = _interopRequireDefault(_teamTeam);
 	
@@ -100128,7 +100128,7 @@
 	
 	var _homeComponent2 = _interopRequireDefault(_homeComponent);
 	
-	var _homeFactory = __webpack_require__(16);
+	var _homeFactory = __webpack_require__(17);
 	
 	var _homeFactory2 = _interopRequireDefault(_homeFactory);
 	
@@ -100972,7 +100972,7 @@
 /* 10 */
 /***/ function(module, exports) {
 
-	module.exports = "<h1>{{ vm.name }}</h1>\r\n<h6>{{ vm.description }}</h6>\r\n<ion-list>\r\n  <ion-item ng-repeat=\"division in vm.divisions\">\r\n    {{ division.title }}\r\n  </ion-item>\r\n</ion-list>"
+	module.exports = "<h1>{{ vm.name }}</h1>\r\n<h6>{{ vm.description }}</h6>\r\n<ion-list>\r\n  <ion-item ng-repeat=\"division in vm.divisions\">\r\n    <a href=\"#\" ng-click=\"vm.loadTeamByDivision()\">{{ division.title }}</a>\r\n  </ion-item>\r\n</ion-list>"
 
 /***/ },
 /* 11 */
@@ -100990,6 +100990,8 @@
 	
 	var _apiDivision = __webpack_require__(12);
 	
+	var _apiTeam = __webpack_require__(16);
+	
 	var HomeController = (function () {
 	  function HomeController(factory) {
 	    _classCallCheck(this, HomeController);
@@ -100997,6 +100999,7 @@
 	    this.name = 'Division';
 	    this.divisions = [];
 	    this.init();
+	    this.teams = [];
 	  }
 	
 	  _createClass(HomeController, [{
@@ -101013,6 +101016,17 @@
 	    key: 'loadDivisions',
 	    value: function loadDivisions() {
 	      return (0, _apiDivision.divisionList)();
+	    }
+	  }, {
+	    key: 'loadTeamByDivision',
+	    value: function loadTeamByDivision() {
+	      var self = this;
+	
+	      // loading teams for given division
+	      var teamsOnDivision = (0, _apiTeam.teamByDivision)('d2');
+	      teamsOnDivision.then(function (tm) {
+	        self.teams = tm;
+	      });
 	    }
 	  }]);
 	
@@ -101256,12 +101270,38 @@
 	'use strict';
 	
 	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	
+	var _constants = __webpack_require__(13);
+	
+	var _common = __webpack_require__(14);
+	
+	var _config = __webpack_require__(15);
+	
+	var teamList = (0, _common.disregarder)(function () {
+		return (0, _common.get)(_config.pathUrl + _constants.API_END_POINT + _constants.Team.ALL).then((0, _common.extractProp)('teams'));
+	});
+	
+	exports.teamList = teamList;
+	var teamByDivision = (0, _common.disregarder)(function (divId) {
+		return (0, _common.get)(_config.pathUrl + _constants.API_END_POINT + _constants.Team.TEAM_BY_DIVISION + divId).then((0, _common.extractProp)('teams'));
+	});
+	exports.teamByDivision = teamByDivision;
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _es6WeakMap = __webpack_require__(17);
+	var _es6WeakMap = __webpack_require__(18);
 	
 	var _es6WeakMap2 = _interopRequireDefault(_es6WeakMap);
 	
@@ -101276,16 +101316,16 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(18)() ? WeakMap : __webpack_require__(19);
+	module.exports = __webpack_require__(19)() ? WeakMap : __webpack_require__(20);
 
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -101311,20 +101351,20 @@
 
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var setPrototypeOf    = __webpack_require__(20)
-	  , object            = __webpack_require__(26)
-	  , value             = __webpack_require__(24)
-	  , randomUniq        = __webpack_require__(27)
-	  , d                 = __webpack_require__(28)
-	  , getIterator       = __webpack_require__(40)
-	  , forOf             = __webpack_require__(60)
-	  , toStringTagSymbol = __webpack_require__(52).toStringTag
-	  , isNative          = __webpack_require__(61)
+	var setPrototypeOf    = __webpack_require__(21)
+	  , object            = __webpack_require__(27)
+	  , value             = __webpack_require__(25)
+	  , randomUniq        = __webpack_require__(28)
+	  , d                 = __webpack_require__(29)
+	  , getIterator       = __webpack_require__(41)
+	  , forOf             = __webpack_require__(61)
+	  , toStringTagSymbol = __webpack_require__(53).toStringTag
+	  , isNative          = __webpack_require__(62)
 	
 	  , isArray = Array.isArray, defineProperty = Object.defineProperty
 	  , hasOwnProperty = Object.prototype.hasOwnProperty, getPrototypeOf = Object.getPrototypeOf
@@ -101383,18 +101423,18 @@
 
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(21)()
+	module.exports = __webpack_require__(22)()
 		? Object.setPrototypeOf
-		: __webpack_require__(22);
+		: __webpack_require__(23);
 
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -101411,7 +101451,7 @@
 
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Big thanks to @WebReflection for sorting this out
@@ -101419,8 +101459,8 @@
 	
 	'use strict';
 	
-	var isObject      = __webpack_require__(23)
-	  , value         = __webpack_require__(24)
+	var isObject      = __webpack_require__(24)
+	  , value         = __webpack_require__(25)
 	
 	  , isPrototypeOf = Object.prototype.isPrototypeOf
 	  , defineProperty = Object.defineProperty
@@ -101486,11 +101526,11 @@
 		return false;
 	}())));
 	
-	__webpack_require__(25);
+	__webpack_require__(26);
 
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -101503,7 +101543,7 @@
 
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -101515,7 +101555,7 @@
 
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Workaround for http://code.google.com/p/v8/issues/detail?id=2804
@@ -101524,8 +101564,8 @@
 	
 	var create = Object.create, shim;
 	
-	if (!__webpack_require__(21)()) {
-		shim = __webpack_require__(22);
+	if (!__webpack_require__(22)()) {
+		shim = __webpack_require__(23);
 	}
 	
 	module.exports = (function () {
@@ -101557,12 +101597,12 @@
 
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var isObject = __webpack_require__(23);
+	var isObject = __webpack_require__(24);
 	
 	module.exports = function (value) {
 		if (!isObject(value)) throw new TypeError(value + " is not an Object");
@@ -101571,7 +101611,7 @@
 
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -101588,15 +101628,15 @@
 
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var assign        = __webpack_require__(29)
-	  , normalizeOpts = __webpack_require__(35)
-	  , isCallable    = __webpack_require__(36)
-	  , contains      = __webpack_require__(37)
+	var assign        = __webpack_require__(30)
+	  , normalizeOpts = __webpack_require__(36)
+	  , isCallable    = __webpack_require__(37)
+	  , contains      = __webpack_require__(38)
 	
 	  , d;
 	
@@ -101657,18 +101697,18 @@
 
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(30)()
+	module.exports = __webpack_require__(31)()
 		? Object.assign
-		: __webpack_require__(31);
+		: __webpack_require__(32);
 
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -101683,13 +101723,13 @@
 
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var keys  = __webpack_require__(32)
-	  , value = __webpack_require__(24)
+	var keys  = __webpack_require__(33)
+	  , value = __webpack_require__(25)
 	
 	  , max = Math.max;
 	
@@ -101711,18 +101751,18 @@
 
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(33)()
+	module.exports = __webpack_require__(34)()
 		? Object.keys
-		: __webpack_require__(34);
+		: __webpack_require__(35);
 
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -101736,7 +101776,7 @@
 
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -101749,7 +101789,7 @@
 
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -101772,7 +101812,7 @@
 
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports) {
 
 	// Deprecated
@@ -101783,18 +101823,18 @@
 
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(38)()
+	module.exports = __webpack_require__(39)()
 		? String.prototype.contains
-		: __webpack_require__(39);
+		: __webpack_require__(40);
 
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -101808,7 +101848,7 @@
 
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -101821,17 +101861,17 @@
 
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var isArguments    = __webpack_require__(41)
-	  , isString       = __webpack_require__(42)
-	  , ArrayIterator  = __webpack_require__(43)
-	  , StringIterator = __webpack_require__(57)
-	  , iterable       = __webpack_require__(58)
-	  , iteratorSymbol = __webpack_require__(52).iterator;
+	var isArguments    = __webpack_require__(42)
+	  , isString       = __webpack_require__(43)
+	  , ArrayIterator  = __webpack_require__(44)
+	  , StringIterator = __webpack_require__(58)
+	  , iterable       = __webpack_require__(59)
+	  , iteratorSymbol = __webpack_require__(53).iterator;
 	
 	module.exports = function (obj) {
 		if (typeof iterable(obj)[iteratorSymbol] === 'function') return obj[iteratorSymbol]();
@@ -101842,7 +101882,7 @@
 
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -101855,7 +101895,7 @@
 
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -101871,15 +101911,15 @@
 
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var setPrototypeOf = __webpack_require__(20)
-	  , contains       = __webpack_require__(37)
-	  , d              = __webpack_require__(28)
-	  , Iterator       = __webpack_require__(44)
+	var setPrototypeOf = __webpack_require__(21)
+	  , contains       = __webpack_require__(38)
+	  , d              = __webpack_require__(29)
+	  , Iterator       = __webpack_require__(45)
 	
 	  , defineProperty = Object.defineProperty
 	  , ArrayIterator;
@@ -101907,18 +101947,18 @@
 
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var clear    = __webpack_require__(45)
-	  , assign   = __webpack_require__(29)
-	  , callable = __webpack_require__(46)
-	  , value    = __webpack_require__(24)
-	  , d        = __webpack_require__(28)
-	  , autoBind = __webpack_require__(47)
-	  , Symbol   = __webpack_require__(52)
+	var clear    = __webpack_require__(46)
+	  , assign   = __webpack_require__(30)
+	  , callable = __webpack_require__(47)
+	  , value    = __webpack_require__(25)
+	  , d        = __webpack_require__(29)
+	  , autoBind = __webpack_require__(48)
+	  , Symbol   = __webpack_require__(53)
 	
 	  , defineProperty = Object.defineProperty
 	  , defineProperties = Object.defineProperties
@@ -102003,7 +102043,7 @@
 
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Inspired by Google Closure:
@@ -102012,7 +102052,7 @@
 	
 	'use strict';
 	
-	var value = __webpack_require__(24);
+	var value = __webpack_require__(25);
 	
 	module.exports = function () {
 		value(this).length = 0;
@@ -102021,7 +102061,7 @@
 
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -102033,15 +102073,15 @@
 
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var copy       = __webpack_require__(48)
-	  , map        = __webpack_require__(49)
-	  , callable   = __webpack_require__(46)
-	  , validValue = __webpack_require__(24)
+	var copy       = __webpack_require__(49)
+	  , map        = __webpack_require__(50)
+	  , callable   = __webpack_require__(47)
+	  , validValue = __webpack_require__(25)
 	
 	  , bind = Function.prototype.bind, defineProperty = Object.defineProperty
 	  , hasOwnProperty = Object.prototype.hasOwnProperty
@@ -102070,13 +102110,13 @@
 
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var assign = __webpack_require__(29)
-	  , value  = __webpack_require__(24);
+	var assign = __webpack_require__(30)
+	  , value  = __webpack_require__(25);
 	
 	module.exports = function (obj) {
 		var copy = Object(value(obj));
@@ -102086,13 +102126,13 @@
 
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var callable = __webpack_require__(46)
-	  , forEach  = __webpack_require__(50)
+	var callable = __webpack_require__(47)
+	  , forEach  = __webpack_require__(51)
 	
 	  , call = Function.prototype.call;
 	
@@ -102107,16 +102147,16 @@
 
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(51)('forEach');
+	module.exports = __webpack_require__(52)('forEach');
 
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Internal method, used by iteration functions.
@@ -102125,8 +102165,8 @@
 	
 	'use strict';
 	
-	var callable = __webpack_require__(46)
-	  , value    = __webpack_require__(24)
+	var callable = __webpack_require__(47)
+	  , value    = __webpack_require__(25)
 	
 	  , bind = Function.prototype.bind, call = Function.prototype.call, keys = Object.keys
 	  , propertyIsEnumerable = Object.prototype.propertyIsEnumerable;
@@ -102151,16 +102191,16 @@
 
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(53)() ? Symbol : __webpack_require__(54);
+	module.exports = __webpack_require__(54)() ? Symbol : __webpack_require__(55);
 
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -102183,15 +102223,15 @@
 
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// ES2015 Symbol polyfill for environments that do not support it (or partially support it)
 	
 	'use strict';
 	
-	var d              = __webpack_require__(28)
-	  , validateSymbol = __webpack_require__(55)
+	var d              = __webpack_require__(29)
+	  , validateSymbol = __webpack_require__(56)
 	
 	  , create = Object.create, defineProperties = Object.defineProperties
 	  , defineProperty = Object.defineProperty, objPrototype = Object.prototype
@@ -102307,12 +102347,12 @@
 
 
 /***/ },
-/* 55 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var isSymbol = __webpack_require__(56);
+	var isSymbol = __webpack_require__(57);
 	
 	module.exports = function (value) {
 		if (!isSymbol(value)) throw new TypeError(value + " is not a symbol");
@@ -102321,7 +102361,7 @@
 
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -102336,7 +102376,7 @@
 
 
 /***/ },
-/* 57 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Thanks @mathiasbynens
@@ -102344,9 +102384,9 @@
 	
 	'use strict';
 	
-	var setPrototypeOf = __webpack_require__(20)
-	  , d              = __webpack_require__(28)
-	  , Iterator       = __webpack_require__(44)
+	var setPrototypeOf = __webpack_require__(21)
+	  , d              = __webpack_require__(29)
+	  , Iterator       = __webpack_require__(45)
 	
 	  , defineProperty = Object.defineProperty
 	  , StringIterator;
@@ -102379,12 +102419,12 @@
 
 
 /***/ },
-/* 58 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var isIterable = __webpack_require__(59);
+	var isIterable = __webpack_require__(60);
 	
 	module.exports = function (value) {
 		if (!isIterable(value)) throw new TypeError(value + " is not iterable");
@@ -102393,14 +102433,14 @@
 
 
 /***/ },
-/* 59 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var isArguments    = __webpack_require__(41)
-	  , isString       = __webpack_require__(42)
-	  , iteratorSymbol = __webpack_require__(52).iterator
+	var isArguments    = __webpack_require__(42)
+	  , isString       = __webpack_require__(43)
+	  , iteratorSymbol = __webpack_require__(53).iterator
 	
 	  , isArray = Array.isArray;
 	
@@ -102414,15 +102454,15 @@
 
 
 /***/ },
-/* 60 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var isArguments = __webpack_require__(41)
-	  , callable    = __webpack_require__(46)
-	  , isString    = __webpack_require__(42)
-	  , get         = __webpack_require__(40)
+	var isArguments = __webpack_require__(42)
+	  , callable    = __webpack_require__(47)
+	  , isString    = __webpack_require__(43)
+	  , get         = __webpack_require__(41)
 	
 	  , isArray = Array.isArray, call = Function.prototype.call
 	  , some = Array.prototype.some;
@@ -102466,7 +102506,7 @@
 
 
 /***/ },
-/* 61 */
+/* 62 */
 /***/ function(module, exports) {
 
 	// Exports true if environment provides native `WeakMap` implementation, whatever that is.
@@ -102480,7 +102520,7 @@
 
 
 /***/ },
-/* 62 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -102503,11 +102543,11 @@
 	
 	var _angularResource2 = _interopRequireDefault(_angularResource);
 	
-	var _aboutComponent = __webpack_require__(63);
+	var _aboutComponent = __webpack_require__(64);
 	
 	var _aboutComponent2 = _interopRequireDefault(_aboutComponent);
 	
-	var _aboutFactory = __webpack_require__(66);
+	var _aboutFactory = __webpack_require__(67);
 	
 	var _aboutFactory2 = _interopRequireDefault(_aboutFactory);
 	
@@ -102532,7 +102572,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 63 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -102543,11 +102583,11 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _aboutComponentHtml = __webpack_require__(64);
+	var _aboutComponentHtml = __webpack_require__(65);
 	
 	var _aboutComponentHtml2 = _interopRequireDefault(_aboutComponentHtml);
 	
-	var _aboutController = __webpack_require__(65);
+	var _aboutController = __webpack_require__(66);
 	
 	var _aboutController2 = _interopRequireDefault(_aboutController);
 	
@@ -102566,13 +102606,13 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 64 */
+/* 65 */
 /***/ function(module, exports) {
 
 	module.exports = "<div>\r\n  <h1>{{ vm.name }}</h1>\r\n</div>"
 
 /***/ },
-/* 65 */
+/* 66 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -102607,7 +102647,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 66 */
+/* 67 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -102627,7 +102667,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 67 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -102646,7 +102686,7 @@
 	
 	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
 	
-	var _menuController = __webpack_require__(68);
+	var _menuController = __webpack_require__(69);
 	
 	var _menuController2 = _interopRequireDefault(_menuController);
 	
@@ -102670,7 +102710,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 68 */
+/* 69 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -102705,7 +102745,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 69 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -102728,11 +102768,11 @@
 	
 	var _angularResource2 = _interopRequireDefault(_angularResource);
 	
-	var _headerComponent = __webpack_require__(70);
+	var _headerComponent = __webpack_require__(71);
 	
 	var _headerComponent2 = _interopRequireDefault(_headerComponent);
 	
-	var _headerFactory = __webpack_require__(73);
+	var _headerFactory = __webpack_require__(74);
 	
 	var _headerFactory2 = _interopRequireDefault(_headerFactory);
 	
@@ -102757,7 +102797,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -102768,11 +102808,11 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _headerComponentHtml = __webpack_require__(71);
+	var _headerComponentHtml = __webpack_require__(72);
 	
 	var _headerComponentHtml2 = _interopRequireDefault(_headerComponentHtml);
 	
-	var _headerController = __webpack_require__(72);
+	var _headerController = __webpack_require__(73);
 	
 	var _headerController2 = _interopRequireDefault(_headerController);
 	
@@ -102791,13 +102831,13 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports) {
 
 	module.exports = "<div>\r\n  <h1>{{ vm.name }}</h1>\r\n</div>"
 
 /***/ },
-/* 72 */
+/* 73 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -102832,7 +102872,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 73 */
+/* 74 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -102852,7 +102892,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 74 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -102875,7 +102915,7 @@
 	
 	var _angularResource2 = _interopRequireDefault(_angularResource);
 	
-	var _teamComponent = __webpack_require__(75);
+	var _teamComponent = __webpack_require__(76);
 	
 	var _teamComponent2 = _interopRequireDefault(_teamComponent);
 	
@@ -102904,7 +102944,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 75 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -102915,11 +102955,11 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _teamComponentHtml = __webpack_require__(76);
+	var _teamComponentHtml = __webpack_require__(77);
 	
 	var _teamComponentHtml2 = _interopRequireDefault(_teamComponentHtml);
 	
-	var _teamController = __webpack_require__(77);
+	var _teamController = __webpack_require__(78);
 	
 	var _teamController2 = _interopRequireDefault(_teamController);
 	
@@ -102938,13 +102978,13 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 76 */
+/* 77 */
 /***/ function(module, exports) {
 
 	module.exports = "<h1>{{ vm.name }}</h1>\r\n<ion-list>\r\n  <ion-item ng-repeat=\"team in vm.teams\">\r\n    {{ team.title }}\r\n  </ion-item>\r\n</ion-list>"
 
 /***/ },
-/* 77 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -102957,7 +102997,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var _apiTeam = __webpack_require__(78);
+	var _apiTeam = __webpack_require__(16);
 	
 	var TeamController = (function () {
 	  function TeamController(factory) {
@@ -103004,32 +103044,6 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 78 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-		value: true
-	});
-	
-	var _constants = __webpack_require__(13);
-	
-	var _common = __webpack_require__(14);
-	
-	var _config = __webpack_require__(15);
-	
-	var teamList = (0, _common.disregarder)(function () {
-		return (0, _common.get)(_config.pathUrl + _constants.API_END_POINT + _constants.Team.ALL).then((0, _common.extractProp)('teams'));
-	});
-	
-	exports.teamList = teamList;
-	var teamByDivision = (0, _common.disregarder)(function (divId) {
-		return (0, _common.get)(_config.pathUrl + _constants.API_END_POINT + _constants.Team.TEAM_BY_DIVISION + divId).then((0, _common.extractProp)('teams'));
-	});
-	exports.teamByDivision = teamByDivision;
-
-/***/ },
 /* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -103041,7 +103055,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _es6WeakMap = __webpack_require__(17);
+	var _es6WeakMap = __webpack_require__(18);
 	
 	var _es6WeakMap2 = _interopRequireDefault(_es6WeakMap);
 	

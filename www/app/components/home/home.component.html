@@ -2,6 +2,6 @@
 <h6>{{ vm.description }}</h6>
 <ion-list>
   <ion-item ng-repeat="division in vm.divisions">
-    {{ division.title }}
+    <a href="#" ng-click="vm.loadTeamByDivision()">{{ division.title }}</a>
   </ion-item>
 </ion-list>
