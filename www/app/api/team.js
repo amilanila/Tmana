@@ -8,6 +8,7 @@ export const teamList = disregarder(() => {
 });
 
 export const teamByDivision = disregarder( divId => {
+	console.log('division = ' + divId);
 	return get(pathUrl + API_END_POINT + Team.TEAM_BY_DIVISION + divId)
 		.then(extractProp('teams'));
 });

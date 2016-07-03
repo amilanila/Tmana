@@ -4,9 +4,10 @@ import { teamByDivision } from '../../api/team';
 class HomeController {
   constructor(factory) {
     this.name = 'Division';
-    this.divisions = [];
-    this.init();
+    this.divisions = [];    
     this.teams = [];
+    
+    this.init();
   }
 
   init(){
@@ -22,11 +23,11 @@ class HomeController {
     return divisionList();
   }
 
-  loadTeamByDivision() {
+  loadTeamByDivision(divId) {
     let self = this;
 
     // loading teams for given division
-    let teamsOnDivision = teamByDivision('d2');
+    let teamsOnDivision = teamByDivision(divId);
     teamsOnDivision.then( tm => {
       self.teams = tm;
       console.log('teams inside = ' + JSON.stringify(self.teams));

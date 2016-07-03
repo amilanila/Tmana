@@ -100973,7 +100973,7 @@
 /* 10 */
 /***/ function(module, exports) {
 
-	module.exports = "<h1>{{ vm.name }}</h1>\r\n<h6>{{ vm.description }}</h6>\r\n<ion-list>\r\n  <ion-item ng-repeat=\"division in vm.divisions\">\r\n    <a href=\"#\" ng-click=\"vm.loadTeamByDivision()\">{{ division.title }}</a>\r\n  </ion-item>\r\n</ion-list>\r\n<div ng-show=\"vm.teams.length\">\r\n  <h1>Teams</h1>\r\n  <ion-list>\r\n    <ion-item ng-repeat=\"team in vm.teams\">\r\n      {{ team.title }}\r\n    </ion-item>\r\n  </ion-list>    \r\n</div>"
+	module.exports = "<h1>{{ vm.name }}</h1>\r\n<h6>{{ vm.description }}</h6>\r\n<ion-list>\r\n  <ion-item ng-repeat=\"division in vm.divisions\">\r\n    <a href=\"#\" ng-click=\"vm.loadTeamByDivision('{{division.id}}')\">{{ division.title }}</a>\r\n  </ion-item>\r\n</ion-list>\r\n<div ng-show=\"vm.teams.length\">\r\n  <h1>Teams</h1>\r\n  <ion-list>\r\n    <ion-item ng-repeat=\"team in vm.teams\">\r\n      {{ team.title }}\r\n    </ion-item>\r\n  </ion-list>    \r\n</div>"
 
 /***/ },
 /* 11 */
@@ -100999,8 +100999,9 @@
 	
 	    this.name = 'Division';
 	    this.divisions = [];
-	    this.init();
 	    this.teams = [];
+	
+	    this.init();
 	  }
 	
 	  _createClass(HomeController, [{
@@ -101020,11 +101021,11 @@
 	    }
 	  }, {
 	    key: 'loadTeamByDivision',
-	    value: function loadTeamByDivision() {
+	    value: function loadTeamByDivision(divId) {
 	      var self = this;
 	
 	      // loading teams for given division
-	      var teamsOnDivision = (0, _apiTeam.teamByDivision)('d2');
+	      var teamsOnDivision = (0, _apiTeam.teamByDivision)(divId);
 	      teamsOnDivision.then(function (tm) {
 	        self.teams = tm;
 	        console.log('teams inside = ' + JSON.stringify(self.teams));
@@ -101287,6 +101288,7 @@
 	
 	exports.teamList = teamList;
 	var teamByDivision = (0, _common.disregarder)(function (divId) {
+		console.log('division = ' + divId);
 		return (0, _common.get)(_config.pathUrl + _constants.API_END_POINT + _constants.Team.TEAM_BY_DIVISION + divId).then((0, _common.extractProp)('teams'));
 	});
 	exports.teamByDivision = teamByDivision;
