@@ -29,8 +29,8 @@ class HomeController {
     let teamsOnDivision = teamByDivision('d2');
     teamsOnDivision.then( tm => {
       self.teams = tm;
-    });
-    
+      console.log('teams inside = ' + JSON.stringify(self.teams));
+    });    
   }
  }
 

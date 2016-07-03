@@ -100140,6 +100140,7 @@
 	  "ngInject";
 	
 	  $stateProvider.state('app.home', {
+	    cache: false,
 	    url: '/home',
 	    views: {
 	      'menuContent': {
@@ -100972,7 +100973,7 @@
 /* 10 */
 /***/ function(module, exports) {
 
-	module.exports = "<h1>{{ vm.name }}</h1>\r\n<h6>{{ vm.description }}</h6>\r\n<ion-list>\r\n  <ion-item ng-repeat=\"division in vm.divisions\">\r\n    <a href=\"#\" ng-click=\"vm.loadTeamByDivision()\">{{ division.title }}</a>\r\n  </ion-item>\r\n</ion-list>"
+	module.exports = "<h1>{{ vm.name }}</h1>\r\n<h6>{{ vm.description }}</h6>\r\n<ion-list>\r\n  <ion-item ng-repeat=\"division in vm.divisions\">\r\n    <a href=\"#\" ng-click=\"vm.loadTeamByDivision()\">{{ division.title }}</a>\r\n  </ion-item>\r\n</ion-list>\r\n<div ng-show=\"vm.teams.length\">\r\n  <h1>Teams</h1>\r\n  <ion-list>\r\n    <ion-item ng-repeat=\"team in vm.teams\">\r\n      {{ team.title }}\r\n    </ion-item>\r\n  </ion-list>    \r\n</div>"
 
 /***/ },
 /* 11 */
@@ -101026,6 +101027,7 @@
 	      var teamsOnDivision = (0, _apiTeam.teamByDivision)('d2');
 	      teamsOnDivision.then(function (tm) {
 	        self.teams = tm;
+	        console.log('teams inside = ' + JSON.stringify(self.teams));
 	      });
 	    }
 	  }]);
@@ -102931,6 +102933,7 @@
 	  "ngInject";
 	
 	  $stateProvider.state('app.team', {
+	    cache: false,
 	    url: '/team',
 	    views: {
 	      'menuContent': {

@@ -5,3 +5,11 @@
     <a href="#" ng-click="vm.loadTeamByDivision()">{{ division.title }}</a>
   </ion-item>
 </ion-list>
+<div ng-show="vm.teams.length">
+  <h1>Teams</h1>
+  <ion-list>
+    <ion-item ng-repeat="team in vm.teams">
+      {{ team.title }}
+    </ion-item>
+  </ion-list>    
+</div>

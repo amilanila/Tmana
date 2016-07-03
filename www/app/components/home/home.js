@@ -15,6 +15,7 @@ let homeModule = angular.module('home', [
 
   $stateProvider
     .state('app.home', {
+      cache: false,
       url: '/home',
       views: {
 	      'menuContent': {

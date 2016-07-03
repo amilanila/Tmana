@@ -15,6 +15,7 @@ let teamModule = angular.module('team', [
 
   $stateProvider
     .state('app.team', {
+      cache: false,
       url: '/team',
       views: {
 	      'menuContent': {
