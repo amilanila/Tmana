@@ -8,19 +8,19 @@ class TeamController {
   }
 
   init(){
-    let self = this;
+    // let self = this;
 
-    // loading all teams
-    let teams = this.loadTeams();
-    teams.then(function(tm){
-      self.teams = tm;
-    });
+    // // loading all teams
+    // let teams = this.loadTeams();
+    // teams.then(function(tm){
+    //   self.teams = tm;
+    // });
 
-    // loading teams for given division
-    let teamsOnDivision = this.loadTeamByDivision('d2');
-    teamsOnDivision.then( tm => {
-      self.teams = tm;
-    });
+    // // loading teams for given division
+    // let teamsOnDivision = this.loadTeamByDivision('d2');
+    // teamsOnDivision.then( tm => {
+    //   self.teams = tm;
+    // });
   }
 
   loadTeams() {

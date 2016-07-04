@@ -29,8 +29,8 @@ angular.module('app', ['ionic', Components.name])
 
 })
 
-.config(($stateProvider, $urlRouterProvider) => {
-  
+.config(($stateProvider, $urlRouterProvider, $ionicConfigProvider) => {
+  $ionicConfigProvider.views.maxCache(0);
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/home');
 });

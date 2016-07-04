@@ -82,8 +82,8 @@
 	      StatusBar.styleDefault();
 	    }
 	  });
-	}).config(function ($stateProvider, $urlRouterProvider) {
-	
+	}).config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+	  $ionicConfigProvider.views.maxCache(0);
 	  // if none of the above states are matched, use this as the fallback
 	  $urlRouterProvider.otherwise('/app/home');
 	});
@@ -103016,19 +103016,19 @@
 	  _createClass(TeamController, [{
 	    key: 'init',
 	    value: function init() {
-	      var self = this;
+	      // let self = this;
 	
-	      // loading all teams
-	      var teams = this.loadTeams();
-	      teams.then(function (tm) {
-	        self.teams = tm;
-	      });
+	      // // loading all teams
+	      // let teams = this.loadTeams();
+	      // teams.then(function(tm){
+	      //   self.teams = tm;
+	      // });
 	
-	      // loading teams for given division
-	      var teamsOnDivision = this.loadTeamByDivision('d2');
-	      teamsOnDivision.then(function (tm) {
-	        self.teams = tm;
-	      });
+	      // // loading teams for given division
+	      // let teamsOnDivision = this.loadTeamByDivision('d2');
+	      // teamsOnDivision.then( tm => {
+	      //   self.teams = tm;
+	      // });
 	    }
 	  }, {
 	    key: 'loadTeams',
